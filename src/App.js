@@ -1,6 +1,8 @@
 import React,{ useState, useEffect }from 'react';
 import axios from 'axios'
 import './App.css';
+import Character from './components/Character'
+import styled from 'styled-components';
 
 const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
@@ -14,44 +16,46 @@ const App = () => {
 
 useEffect(()=>{
 
+  const allChars = []
+
   axios.get('https://swapi.dev/api/people/')
       .then( res => {
 
-            res.data.results.forEach(item => {
-              swData.push(item)
-            })
-
-        } 
+        console.log(res.data.results)
+            //setSWData(res.data.results)
+            setSWData(res.data.results)
+          } 
         )
 
       .catch( err => console.log('error message bro') )
-
-  for(let i=2; i<=9 ; i++){
-
-        axios.get(`https://swapi.dev/api/people/?page=${i}`)
-          .then(res => {
-
-                res.data.results.forEach(item => {
-
-                  swData.push(item)
-                  
-                });
-                
-          } )
-          .catch(err => console.log('error message man') )
-
-      }
   
-  console.log(swData)
+  
 
 },[])
 
 
+const ContainerDiv= styled.div`
+
+display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr;
+gird-template-rows:auto;
+grid-gap:10px;
+margin:10px
+
+
+`
+
+console.log(swData[0])
 
 
   return (
     <div className="App">
       <h1 className="Header">Characters</h1>
+
+  <ContainerDiv>
+  {swData.map(item=><Character data={item}/>)}
+  </ContainerDiv>
+
     </div>
   );
 }
