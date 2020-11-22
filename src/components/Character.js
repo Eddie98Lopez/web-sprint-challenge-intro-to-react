@@ -25,7 +25,8 @@ function Character (props){
         <CardTheme>
             <h2>{props.data.name}</h2>
             <h3>{props.data.gender}</h3>
-            <h3>{props.data.height}</h3>
+            <h3>{props.data.height} cm</h3>
+            <p>Appears in {props.data.films.length} movies</p>
         </CardTheme>  
          
         
